@@ -1,6 +1,6 @@
 ---
 marp: true
-theme: uncover
+theme: default
 class: invert
 ---
 
@@ -17,67 +17,67 @@ Louvain-li-Nux
 ## Cette présentation est
 
 - Sous license libre CC-BY 4.0
-- Disponilbe en ligne: <https://wiki.louvainlinux.org/fr/training/git>
+- Disponible en ligne : <https://wiki.louvainlinux.org/fr/training/git>
 
 ---
 
 ## Table des matières
 
 <!-- TODO -->
-
----
-
-## Git, c'est quoi ?
-
-![](img/git-icon.svg)
+<!-- pas moyen de gen ça automatiquement avec MARP? -->
 
 ---
 
 ### Git, c'est quoi ?
 
-- C'est un système de gestion de versions distribué
-- VCS, en Anglais
+- Un système de gestion de versions distribué
+- VCS (Version Control System), en Anglais
 
 ---
 
-## Environment Setup
+## Mise en place de l'environnement
 
 ---
+
+Ouvrir votre émulateur de terminal, et ensuite :
 
 ### Linux
 
-```sh
-sudo apt update; sudo apt install git
+```console
+$ sudo apt update && sudo apt install git
 ```
 
 ### Windows
 
-`Ctrl + R` $\rightarrow$ `powershell` $\rightarrow$ `wsl --install` $\rightarrow$ cf. Linux
+- `wsl --install`
+- Ouvrir une session Linux.
+- Cf. Linux.
 
 ### Mac
 
-```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```console
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git
 ```
 
 ---
 
-## The Shell
+## La ligne de commande (CLI)
 
-Quelques explications sur l'interface commande
+Des implémentations GUI existent, *mais* :
+
+- Moins flexibles.
+- Opaques.
+- Souvent fermées.
+- C'est juste plus facile de tous vous apprendre la même chose.
+
+Donc $\rightarrow$ petit détour vers les bases du CLI !
 
 ---
 
-### Le Terminal
+## La Commande
 
-![](img/terminal.png)
-
----
-
-### La Commande
-
-```sh
-$ echo "Hello world"  # <-- commande
+```console
+$ echo "Hello world"  # <-- commande + argument
 Hello world           # <-- sortie
 ```
 
@@ -85,18 +85,105 @@ Hello world           # <-- sortie
 
 ---
 
-- `cd` = Changer de dossier
-- `ls` = lister le dossier
-- `echo` = écrire du text
-- `cat` = lire un fichier
+## Le Chemin (aka Path)
+
+Soyez attentif ici, c'est là où les gens ont généralement le plus de mal !
 
 ---
 
-### Le Chemin
+## Le Chemin (aka Path)
 
-```txt
-/home/[username]/projets/git/
+Une liste de dossiers empruntés pour arriver à un dossier/fichier, séparés par des `/`. E.g. :
+
+- Un fichier qui s'appelle "tux" : `tux`
+- Ce dossier "super" : `super`
+- Un fichier qui s'appelle "tux2" dans ce dossier "super" : `super/tux2`
+
+Ce sont des chemins *relatifs* !
+
+---
+
+## Le Chemin (aka Path) : `pwd`
+
+**Q**: Relatifs à quoi ? **R**: Relatifs à nous.
+**Q**: Comment savoir où nous sommes ? **R**:
+
+```console
+$ pwd # "print working directory" ou "écrire le dossier de travail"
+/home/beastie
 ```
+
+Le "dossier de travail" ou "working directory" est le dossier dans lequel nous sommes actuellement.
+Ceci est un chemin *absolu* !
+
+---
+
+## Le Chemin (aka Path) : `pwd`
+
+On peut trouver un chemin absolu d'un chemin relatif en ajoutant notre dossier de travail avant :
+
+- Le fichier `tux` devient `/home/beastie/tux`.
+- Le dossier `super` devient `/home/beastie/super`.
+- Le fichier `super/tux2` devient `/home/beastie/super/tux2`.
+
+---
+
+## Le Chemin (aka Path) : `ls`
+
+On peut afficher tous les fichiers/dossiers dans notre dossier de travail :
+
+```console
+$ ls
+tux	super/
+```
+
+Ou dans un autre dossier :
+
+```console
+$ ls super
+tux2
+```
+
+---
+
+## Le Chemin (aka Path) : `cd`
+
+On peut changer notre dossier de travail :
+
+```console
+$ cd super
+```
+
+Et puis encore :
+
+```console
+$ ls
+tux2
+```
+
+---
+
+## Le Chemin (aka Path) : `cd`
+
+On peut retourner un dossier en arrière :
+
+```console
+$ pwd
+/home/beastie/super
+$ cd ..
+$ pwd
+/home/beastie
+```
+
+---
+
+## Le Chemin (aka Path)
+
+Pour résumer :
+
+- `pwd` : Afficher le dossier de travail.
+- `ls` : Afficher le contenu d'un dossier.
+- `cd` : Changer le dossier de travail.
 
 ---
 
