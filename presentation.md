@@ -187,6 +187,41 @@ Pour résumer :
 
 ---
 
+## Git
+
+### Les états d'un fichier
+
+<br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+
+![bg contain](img/tabler-file-check.svg)
+![bg contain](img/tabler-file-pencil.svg)
+![bg contain](img/tabler-file-diff.svg)
+![bg contain](img/tabler-mail.svg)
+
+---
+
+## Git
+
+### Les états d'un fichier
+
+![](img/file-states.svg)
+
+<!-- 
+https://mermaid.live
+```
+sequenceDiagram
+    participant Sans changements
+    participant Changé
+    participant Staged
+
+    Sans changements ->> Changé: Modifications dans le fichier
+    Changé ->> Staged: Préparer le fichier au commit
+    Staged ->> Sans changements: Commit
+```
+ -->
+
+---
+
 ### Configurer `git`
 
 ```sh
