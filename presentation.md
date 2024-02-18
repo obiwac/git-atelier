@@ -222,9 +222,59 @@ sequenceDiagram
 
 ---
 
+## Git
+
+### Le contenu d'un commit
+
+- L'auteur (Nom + Email)
+- La date
+- L'identifiant
+- Un message (une description des changements)
+- Les changements
+
+---
+
 ### Configurer `git`
 
 ```sh
 git config --global user.name Theo
 git config --global user.email theo@louvainlinux.org
 ```
+
+---
+
+### Créer un dépot
+
+```sh
+git init
+```
+
+---
+
+### Créer un fichier
+
+```sh
+echo "Hello Git!" > hello.txt
+git add hello.txt
+git commit --message "First commit"
+```
+
+---
+
+### Changer un fichier
+
+```sh
+echo "Learning Git" >> hello.txt
+git add hello.txt
+git commit --message "Second commit"
+```
+
+---
+
+### Lire l'historique
+
+```sh
+git log
+```
+
+Monter/déscendre avec `j`/`k`, quitter avec `q`.
