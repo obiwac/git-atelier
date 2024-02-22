@@ -278,3 +278,24 @@ git log
 ```
 
 Monter/déscendre avec `j`/`k`, quitter avec `q`.
+
+---
+
+### Voir les différences
+
+```sh
+git diff 0d1fa55 5a50332
+```
+
+Monter/déscendre avec `j`/`k`, quitter avec `q`.
+
+---
+
+### Restaurer un fichier
+
+```sh
+head -c 16 /dev/random | base64 > hello.txt
+cat hello.txt   # Le fichier est Kaputt
+git restore hello.txt
+cat hello.txt   # Le fichier est comme avant
+```
