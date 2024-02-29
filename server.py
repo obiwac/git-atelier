@@ -14,6 +14,7 @@ REPO_COUNT = int(os.environ.get('REPO_COUNT', 10))
 POOL_COUNT = max(REPO_COUNT, multiprocessing.cpu_count())
 SERVER_NAME = os.environ.get("SERVER_NAME", "Tux")
 SERVER_EMAIL = os.environ.get("SERVER_EMAIL", "info@louvainlinux.org")
+KEEP_REPO = os.environ.get("KEEP_REPO") in ("1", "true", "True", "yes")
 
 
 class GitHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -190,47 +191,48 @@ def repo_worker(repo):
 if __name__ == "__main__":
 	# create new git repos
 
-	subprocess.run(["git", "config", "--global", "init.defaultBranch", "main"])
-	shutil.rmtree(GIT_PATH, ignore_errors=True)
-	os.mkdir(GIT_PATH)
+	if KEEP_REPO is False or not os.path.isdir(GIT_PATH):
+	  subprocess.run(["git", "config", "--global", "init.defaultBranch", "main"])
+	  shutil.rmtree(GIT_PATH, ignore_errors=True)
+	  os.mkdir(GIT_PATH)
 
-	for i in range(REPO_COUNT):
-		path = os.path.join(GIT_PATH, f"repo-{i}.git")
-		print(f"Creating git repo {i} at {path}")
+	  for i in range(REPO_COUNT):
+		  path = os.path.join(GIT_PATH, f"repo-{i}.git")
+		  print(f"Creating git repo {i} at {path}")
 
-		os.mkdir(path)
-		subprocess.run(["git", "init", "--bare"], cwd=path)
+		  os.mkdir(path)
+		  subprocess.run(["git", "init", "--bare"], cwd=path)
 
-		# initial configuration
+		  # initial configuration
 
-		subprocess.run(["git", "config", "http.receivepack", "true"], cwd=path)
+		  subprocess.run(["git", "config", "http.receivepack", "true"], cwd=path)
 
-		# clone the repo we just created into a working directory
+		  # clone the repo we just created into a working directory
 
-		working_path = path + "-work"
-		subprocess.run(["git", "clone", path, working_path])
+		  working_path = path + "-work"
+		  subprocess.run(["git", "clone", path, working_path])
 
-		# configure working repository
+		  # configure working repository
 
-		subprocess.run(["git", "config", "commit.gpgsign", "false"], cwd=working_path)
-		subprocess.run(["git", "config", "user.name", SERVER_NAME], cwd=working_path)
-		subprocess.run(["git", "config", "user.email", SERVER_EMAIL], cwd=working_path)
+		  subprocess.run(["git", "config", "commit.gpgsign", "false"], cwd=working_path)
+		  subprocess.run(["git", "config", "user.name", SERVER_NAME], cwd=working_path)
+		  subprocess.run(["git", "config", "user.email", SERVER_EMAIL], cwd=working_path)
 
-		# add a file and commit it
+		  # add a file and commit it
 
-		with open(os.path.join(working_path, "README.md"), "w") as f:
-			f.write(f"# Repo {i}\n\nCeci est un fichier dans un dépôt git !\n")
+		  with open(os.path.join(working_path, "README.md"), "w") as f:
+			  f.write(f"# Repo {i}\n\nCeci est un fichier dans un dépôt git !\n")
 
-		subprocess.run(["git", "add", "README.md"], cwd=working_path)
-		subprocess.run(["git", "commit", "-m", "Initial commit"], cwd=working_path)
-		subprocess.run(["git", "push"], cwd=working_path)
+		  subprocess.run(["git", "add", "README.md"], cwd=working_path)
+		  subprocess.run(["git", "commit", "-m", "Initial commit"], cwd=working_path)
+		  subprocess.run(["git", "push"], cwd=working_path)
 
-		# create repo worker process
+		  # create repo worker process
 
-		repo = Repo(i, path, working_path)
+		  repo = Repo(i, path, working_path)
 
-		p = multiprocessing.Process(target=repo_worker, args=(repo,))
-		p.start()
+		  p = multiprocessing.Process(target=repo_worker, args=(repo,))
+		  p.start()
 
 	# serve the server
 
