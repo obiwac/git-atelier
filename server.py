@@ -21,6 +21,31 @@ class GitHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 	rbufsize = 0  # it is super important to make the server unbuffered, otherwise it will hang
 
 	def do_GET(self):
+		if self.path == "/" or self.path.startswith("/img/"):
+			self.send_response(200)
+
+			if self.path == "/":
+				self.send_header("Content-type", "text/html")
+				path = "presentation.html"
+
+			else:
+				extension = self.path.split(".")[-1]
+
+				if extension == "svg":
+					self.send_header("Content-type", "image/svg+xml")
+
+				else:
+					self.send_header("Content-type", f"image/{extension}")
+
+				path = self.path[1:]
+
+			self.end_headers()
+
+			with open(path, "rb") as f:
+				self.wfile.write(f.read())
+
+			return
+
 		self.run_cgi()
 
 	def do_POST(self):
