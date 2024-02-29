@@ -17,7 +17,7 @@ Louvain-li-Nux
 ## Cette présentation est
 
 - Sous license libre GPLv2
-- Disponible en ligne : <https://wiki.louvainlinux.org/fr/training/git>
+- Disponible en ligne : <https://gitlab.com/louvainlinux/training/atelier-git/-/blob/main/presentation.md>
 - N'hésitez pas à suivre les slides en même temps que la presentation !
 
 ---
@@ -744,7 +744,7 @@ Maintenant on va mettre ce que vous avez appris en pratique !
 
 ### Créer un compte GitHub
 
-- Allez sur [https://github.com](https://github.com).
+- Allez sur <https://github.com>.
 - Débrouillez-vous.
 
 ---
@@ -821,7 +821,7 @@ $ git push github
 
 ## Contribuer à un repo Open Source
 
-On va utiliser [https://github.com/firstcontributions/first-contributions](https://github.com/firstcontributions/first-contributions), qui est un projet fait exprès pour introduire les gens aux contributions Open Source.
+On va utiliser <https://github.com/firstcontributions/first-contributions>, qui est un projet fait exprès pour introduire les gens aux contributions Open Source.
 
 ---
 
@@ -874,4 +874,5 @@ $ git push
 # Merci pour votre attention !
 
 Les slides sont disponibles en ligne :
-TODO
+
+<https://gitlab.com/louvainlinux/training/atelier-git/-/blob/main/presentation.md>
