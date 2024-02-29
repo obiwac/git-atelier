@@ -762,13 +762,40 @@ Copier la sortie de cette commande.
 
 ### Ajouter la clef SSH sur GitHub
 
-TODO
+Une fois dans les paramètres, allez sur "SSH and GPG keys".
+
+![bg right height:70%](img/ssh.png)
+
+---
+
+### Ajouter la clef SSH sur GitHub
+
+Appuyez sur "New SSH key".
+
+![bg right height:70%](img/new-ssh-key.png)
+
+---
+
+### Ajouter la clef SSH sur GitHub
+
+Collez votre clef SSH public.
+Soyez sûr de bien copier `id_ed25519.pub` et pas `id_ed25519` !
+
+![bg right height:70%](img/add-ssh-key.png)
 
 ---
 
 ### Créer un repo sur git
 
-TODO
+![height:70% bg](img/new-repo.png)
+
+---
+
+![height:100% bg](img/create-new-actually.png)
+
+---
+
+![height:90% bg](img/copy-addr.png)
 
 ---
 
@@ -786,19 +813,21 @@ $ git push github
 
 ---
 
-TODO show repo contents online (on GitHub)
+## Un exemple concret !
+
+*Démo en live de ce que je viens d'expliquer.*
 
 ---
 
 ## Contribuer à un repo Open Source
 
-On va utiliser [https://github.com/user/first-contributions](https://github.com/user/first-contributions), qui est un projet fait pour introduire les gens aux contributions Open Source.
+On va utiliser [https://github.com/firstcontributions/first-contributions](https://github.com/firstcontributions/first-contributions), qui est un projet fait exprès pour introduire les gens aux contributions Open Source.
 
 ---
 
 ### Fork
 
-TODO
+![height:70% bg](img/fork.png)
 
 ---
 
@@ -821,16 +850,28 @@ $ git push
 
 ### Ouvrir une PR
 
-TODO
+![](img/open-pr.png)
 
 ---
 
-## Tips and tricks
+## Un exemple concret !
 
-- `git add -p`
-- tags
-- idea behind refs
-- git hooks (pre-commit.com)
-- git commit --amend
-- git push remote branch
-- git blame
+*Démo en live de ce que je viens d'expliquer.*
+
+---
+
+## Features avancées
+
+- `git add -p`.
+- Tags.
+- Les hooks : (pre-commit.com)[pre-commit.com].
+- `git commit --amend`.
+- `git blame`.
+- `git reset HEAD~1`.
+
+---
+
+# Merci pour votre attention !
+
+Les slides sont disponibles en ligne :
+TODO
