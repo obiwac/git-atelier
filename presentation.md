@@ -16,16 +16,16 @@ Louvain-li-Nux
 
 ## Cette présentation est
 
-- Sous license libre CC-BY 4.0
+- Sous license libre GPLv2
 - Disponible en ligne : <https://wiki.louvainlinux.org/fr/training/git>
-- N'hésitez pas à la suivre pendant la presentation !
+- N'hésitez pas à suivre les slides en même temps que la presentation !
 
 ---
 
-### Git, c'est quoi ?
+## Git, c'est quoi ?
 
-- Un système de gestion de versions distribué
-- VCS (Version Control System), en Anglais
+- Un système de gestion de versions distribué.
+- VCS (Version Control System), en Anglais.
 
 ---
 
@@ -212,28 +212,29 @@ On verra l'utilité de celà un peu plus tard...
 
 ---
 
-## Mise en place de l'environnement pour la suite de cet atelier
+### Configuration de pour la suite de cet atelier git
+
+```sh
+git config --global user.name "Tux"
+git config --global user.email "info@louvainlinux.org"
+git config --global pull.rebase false
+git config --global push.autoSetupRemote true
+```
+
+---
 
 Clôner votre repo :
 
 ```sh
-$ git clone https://git.louvainlinux.org/repo69
+$ git clone https://git.louvainlinux.org/repo-69
 ```
 
 Un dossier a été crée, `cd` dedans :
 
 ```sh
-$ cd repo69
-```
-
----
-
-### Configuration de git
-
-```sh
-git config --global user.name “Tux”
-git config --global user.email “info@louvainlinux.org”
-git config --global pull.rebase false
+$ cd repo-69
+$ pwd
+/home/tux/repo-69
 ```
 
 ---
@@ -288,6 +289,14 @@ TODO: show command (`git diff --staged`/`git diff`) + drawing of empty everythin
 
 ---
 
+### Statut global du stage
+
+On peut voir le statut global du stage avec `git status` :
+
+TODO: show command (`git status`) + drawing of empty everything side-by-side
+
+---
+
 ## Mais que fait-on avec le stage ?
 
 ---
@@ -328,7 +337,7 @@ $ git push
 Le fait de nous mettre à jour par rapport au changements sur le remote :
 
 ```sh
-$ git push
+$ git pull
 ```
 
 ---
@@ -343,6 +352,8 @@ $ git push
 
 ## Un exemple concret !
 
+*Démo en live de ce que je viens d'expliquer.*
+
 ---
 
 ### Recap
@@ -355,18 +366,11 @@ $ git push
 
 ## Exercices git
 
-Avant de commencer, cloner la repo avec votre numéro :
+Assurez-vous de bien être dans le dossier de votre repo :
 
 ```sh
-$ git clone https://git.louvainlinux.org/repo69
-```
-
-Et entrez dedans :
-
-```sh
-$ cd repo69
 $ pwd
-/home/tux/repo69
+/home/tux/repo-69
 ```
 
 ---
@@ -498,47 +502,263 @@ Assurez-vous d'avoir tous les deux clone ce repo.
 
 ### Exercice 4 : Générer un merge conflict
 
-TODO faire en sorte qu'il y ait un merge conflict et que l'un d'entre vous le fix
-Ensuite, que l'autre fasse pareil.
+Faites en sorte qu'il y ait un merge conflict :
+
+- Modifiez tous les deux la même ligne de code.
+- Faites tous les deux un commit et essayez de push.
+- L'un d'entre vous devra pull et resolver le merge conflict.
+
+Ensuite, inversez les rôles !
 
 ---
 
-### Branches
+## Branches
 
+- Permettent que chacun travaille "dans son coin".
+- Les choses sont mises en commun tout à la fois plutôt qu'après chaque commit.
+- Permettent de tester des changements avant de les faire passer en production.
+- La branche principale s'appelle `main`.
+
+---
+
+### Lister les branches
+
+On peut voir une liste des branches :
+
+```sh
+$ git branch
+* main
+  branch2
+```
+
+L'étoile indique sur quelle branche on est.
+
+---
+
+### Changer de branche
+
+On peut changer notre branche courante :
+
+```sh
+$ git checkout branch2
+$ git branch
+  main
+* branch2
+```
+
+---
+
+### Nouvelle branche
+
+On peut créer une nouvelle branche :
+
+```sh
+$ git checkout -b branch3
+$ git branch
+  main
+  branch2
+* branch3
+```
+
+---
+
+### Visualisation des branches
+
+On peut visualiser les branches :
+
+```sh
+$ git log --oneline --decorate --graph --all
 TODO
+```
+
+---
+
+### Merge d'une branche
+
+On peut merge d'une branche :
+
+```sh
+$ git checkout main
+$ git merge branch2
+$ git merge branch3
+```
+
+Et les éffacer ensuite :
+
+```sh
+$ git branch -d branch2
+$ git branch -d branch3
+```
+
+---
+
+### Branches sur remote
+
+On peut push nos branches pour les utiliser autrepart :
+
+```sh
+$ git push
+```
 
 ---
 
 ### Exercice 5 : Branches
 
-TODO
+- Toujours en groupes de deux.
+- Créez chacun une branche.
+- Faites quelques commits sur vos branches.
+- Push vos changements.
+- Pull les changements de l'autre.
+- Merge la branche de l'autre (et resolvez les conflits s'il y en a).
+- Push le merge.
+
+---
+
+## Étiquette git
+
+---
+
+### Ne pas push des gros blobs binaires
+
+- Git est fait primairement pour du texte.
+- Éviter de push des gros fichiers s'ils ne constituent pas la "source" du projet (i.e. si l'utilisateur sait le générer lui-même, ça n'a pas lieu d'être sur git).
+- **Exemple** : Push `main.c`, mais pas `main.o`. L'utilisateur sait executer la commande lui-même (`gcc -c main.c -o main.o`), et `main.o` est un gros fichier binaire.
+
+---
+
+### Solution : `.gitignore`
+
+Fichier à la racine du repo qui contient une liste de chemins à ne pas être commit :
+
+```sh
+je/veux/surtout/pas/commit/ce/dossier
+
+# "*" veut dire "main.o", mais aussi "dfkjghdkfg.o"
+# ou encore "sedidhoi.o"
+
+*.o
+```
+
+---
+
+### Avoir le diff le plus petit
+
+- Ne pas modifier des choses qui ne sont pas pertinentes.
+- **Exemple** : Changer le formattage d'un fichier auquel on a autrement pas touché, même s'il est incorrect.
+- **But** : Avoir le diff le plus petit. Un petit diff est plus facile à review et à "blâmer" (on verra ça plus tard).
+
+---
+
+### Pas de "trailing whitespaces"
+
+- Ne pas laisser des espaces blancs à la fin des lignes.
+- `git diff` affichera même en rouge pour pas qu'on passe à côté :
+
+TODO you know what to do
+
+---
+
+### Avoir un newline (`\n`) à la dernière ligne
+
+Sur VS Code, ajouter dans `settings.json` :
+
+```json
+{
+	"files.insertFinalNewline": true
+}
+```
+
+Pourquoi ce n'est pas activé par défaut ? Un mystère...
+Important car sinon un diff qui ajoute une ligne en modifiera deux, vu qu'il faut aussi ajouter une newline à la précédente.
 
 ---
 
 ## Contribution à un repo Open Source
 
-TODO part 1
-
-- Create github account
-- SSH keys setup
-- Create git repo
-- add your repo as a remote (quick quick recap on remotes, or should the second on remotes be here anyway?)
-- `git push origin github`
-
-TODO part 2
-
-- Fork https://github.com/user/first-contributions
-- clone
-- cd
-- make changes
-- add/commit/push
-- create PR on github
+Maintenant on va mettre ce que vous avez appris en pratique !
 
 ---
 
-## Git etiquette
+### Créer un compte GitHub
 
-TODO be very brief here
+- Allez sur [https://github.com](https://github.com).
+- Débrouillez-vous.
+
+---
+
+### Mettre en place les clefs SSH (authentification)
+
+```sh
+$ ssh-keygen -t ed25519 -P ""
+$ cat ~/.ssh/id_ed25519.pub
+```
+
+Copier la sortie de cette commande.
+
+---
+
+### Ajouter la clef SSH sur GitHub
+
+TODO
+
+---
+
+### Créer un repo sur git
+
+TODO
+
+---
+
+### Ajouter un second remote
+
+```sh
+$ git remote
+origin
+$ git remote add github ssh://git@github.com/tux/mon-repo
+$ git remote
+origin
+github
+$ git push github
+```
+
+---
+
+TODO show repo contents online (on GitHub)
+
+---
+
+## Contribuer à un repo Open Source
+
+On va utiliser [https://github.com/user/first-contributions](https://github.com/user/first-contributions), qui est un projet fait pour introduire les gens aux contributions Open Source.
+
+---
+
+### Fork
+
+TODO
+
+---
+
+### Faire ses changements
+
+```sh
+$ git clone ssh://git@github.com/tux/first-contributions
+$ cd first-contributions
+```
+
+Ajoutez votre nom ou ce que vous voulez au fichier `README.md`.
+
+```sh
+$ git add README.md
+$ git commit -m "mes changements"
+$ git push
+```
+
+---
+
+### Ouvrir une PR
+
+TODO
 
 ---
 
@@ -550,3 +770,4 @@ TODO be very brief here
 - git hooks (pre-commit.com)
 - git commit --amend
 - git push remote branch
+- git blame

@@ -10,7 +10,7 @@ import multiprocessing
 
 GIT_PATH = "/tmp/atelier-git"
 GIT_HTTP_BACKEND_PATH = "/usr/local/libexec/git-core/git-http-backend"
-REPO_COUNT = 1
+REPO_COUNT = 5
 POOL_COUNT = max(REPO_COUNT, multiprocessing.cpu_count())
 SERVER_NAME = "Tux"
 SERVER_EMAIL = "info@louvainlinux.org"
