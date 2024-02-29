@@ -83,8 +83,6 @@ Hello world           # <-- sortie
 
 Soyez attentif ici, c'est là où les gens ont généralement le plus de mal !
 
-TODO examples in a file manager side-by-side
-
 ---
 
 ## Le Chemin (aka Path)
@@ -198,17 +196,16 @@ $ pwd
 - Souvent sur un serveur externe (GitHub, Gitlab, etc.).
 - Récupérer un repo c'est "clôner" un repo.
 
-TODO drawing showing remotes
+![bg right height:70%](img/remotes.png)
 
 ---
 
-### Le remote
+### Plusieurs remotes
 
 C'est aussi possible d'avoir plusieurs remotes à la fois !
-
-TODO drawing showing multiple users with muliple remotes
-
 On verra l'utilité de celà un peu plus tard...
+
+![bg right height:70%](img/remotes-multiple.png)
 
 ---
 
@@ -239,61 +236,102 @@ $ pwd
 
 ---
 
-## Le stage (== scène)
+## Le stage (~ scène)
 
 Espace de travail pour des changements.
 
-TODO Drawing of an empty stage, with a bunch of changes around it.
+![bg right height:70%](img/stage-empty.png)
 
 ---
 
 ### Diff (unstaged)
 
-On peut voir les changements qui ne sont pas encore sur le stage ("unstaged") avec `git diff` :
+On peut voir les changements qui ne sont pas encore sur le stage ("unstaged") :
 
-TODO show command + drawing side-by-side
+```sh
+$ git diff
+```
 
 Dans ce cas ci, tous les changements sont unstaged.
+
+![bg right height:70%](img/stage-diff.png)
 
 ---
 
 ### Ajout de changements
 
-On peut faire monter des changements sur le stage avec `git add chemin/vers/mon/fichier` :
+On peut faire monter des changements sur le stage :
 
-TODO: Drawing of stage with added changes
+```sh
+$ git add chemin/vers/mon/fichier
+```
+
+![bg right height:70%](img/stage-add.png)
 
 ---
 
 ### Diff (staged)
 
-On peut voir les changements sont sur le stage ("staged") avec `git diff --staged` :
+On peut voir les changements sont sur le stage ("staged") :
 
-TODO show command + drawing side-by-side
+```sh
+$ git diff --staged
+```
+
+![bg right height:70%](img/stage-diff-staged.png)
 
 ---
 
 ### Nettoyage du stage
 
-On peut tout enlever du stage avec `git reset` :
+On peut tout enlever du stage :
 
-TODO: show command (`git diff --staged`) + drawing of empty stage side-by-side
+```sh
+$ git reset
+```
+
+Et du coup il n'y a plus rien de staged.
+
+![bg right height:70%](img/stage-reset.png)
 
 ---
 
 ### Effaçage des changements
 
-On peut tout enlever du stage et en dehors du stage avec `git restore chemin/vers/mon/fichier` :
+On peut tout enlever du stage et en dehors du stage :
 
-TODO: show command (`git diff --staged`/`git diff`) + drawing of empty everything side-by-side
+```sh
+$ git restore chemin/vers/mon/fichier
+```
+
+![bg right height:70%](img/stage-void.png)
 
 ---
 
 ### Statut global du stage
 
-On peut voir le statut global du stage avec `git status` :
+On peut voir le statut global du stage :
 
-TODO: show command (`git status`) + drawing of empty everything side-by-side
+```sh
+$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   fichier-modifié-et-staged
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   fichier-modifié-mais-pas-stageed
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	nouveau-fichier
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
 
 ---
 
@@ -312,13 +350,30 @@ TODO: show command (`git status`) + drawing of empty everything side-by-side
 $ git commit -m "ui: Add random button"
 ```
 
+![bg right height:70%](img/commit.png)
+
 ---
 
 ### Le log
 
 - Au final, notre code est une superposition de ces changements (commits) en ordre chronologique.
 - Un peu comme un album photo.
-- On peut voir toutes les photos de cet "album photo" avec `git log`.
+- On peut voir toutes les photos de cet "album photo" :
+
+```sh
+$ git log
+commit 3e54... (HEAD -> main, origin/main, origin/HEAD)
+Author: Tux <info@louvainlinux.org>
+Date:   Thu Feb 29 14:06:18 2024 +0100
+
+    Dernier commit
+
+commit de92ddfcc4f6c9e06dfc148f681e35aeca32ac01
+Author: Tux <info@louvainlinux.org>
+Date:   Thu Feb 29 14:05:25 2024 +0100
+
+    Premier commit
+```
 
 ---
 
@@ -330,6 +385,8 @@ Le fait de mettre à jour le remote avec nos changements :
 $ git push
 ```
 
+![bg right height:70%](img/push.png)
+
 ---
 
 ### Le pull
@@ -339,6 +396,8 @@ Le fait de nous mettre à jour par rapport au changements sur le remote :
 ```sh
 $ git pull
 ```
+
+![bg right height:70%](img/pull.png)
 
 ---
 
@@ -568,8 +627,12 @@ On peut visualiser les branches :
 
 ```sh
 $ git log --oneline --decorate --graph --all
-TODO
+
+# C'est un peu trop long pour taper ici,
+# regarder plutôt la jolie image à droite.
 ```
+
+![bg right height:70%](img/branches.png)
 
 ---
 
@@ -654,7 +717,7 @@ je/veux/surtout/pas/commit/ce/dossier
 - Ne pas laisser des espaces blancs à la fin des lignes.
 - `git diff` affichera même en rouge pour pas qu'on passe à côté :
 
-TODO you know what to do
+![bg right height:25%](img/trailing-whitespace.png)
 
 ---
 
