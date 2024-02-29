@@ -1,16 +1,23 @@
 import http.server
 import subprocess
 import os
+import time
+import re
 import select
 import shutil
 import socketserver
+import multiprocessing
 
 GIT_PATH = "/tmp/atelier-git"
 GIT_HTTP_BACKEND_PATH = "/usr/local/libexec/git-core/git-http-backend"
-REPO_COUNT = 5
+REPO_COUNT = 1
+POOL_COUNT = max(REPO_COUNT, multiprocessing.cpu_count())
+SERVER_NAME = "Tux"
+SERVER_EMAIL = "info@louvainlinux.org"
+
 
 class GitHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
-	rbufsize = 0 # it is super important to make the server unbuffered, otherwise it will hang
+	rbufsize = 0  # it is super important to make the server unbuffered, otherwise it will hang
 
 	def do_GET(self):
 		self.run_cgi()
@@ -38,7 +45,7 @@ class GitHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 			query = ""
 
 		# XXX a lot of this is adapted from the deprecated CGIHTTPRequestHandler class
-		
+
 		env = {
 			**os.environ,
 			"SERVER_SOFTWARE": self.version_string(),
@@ -51,7 +58,9 @@ class GitHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 			"GIT_HTTP_EXPORT_ALL": "",
 		}
 
-		env["CONTENT_TYPE"] = self.headers.get_content_type() if self.headers.get_content_type() else self.headers["content-type"]
+		env["CONTENT_TYPE"] = (
+			self.headers.get_content_type() if self.headers.get_content_type() else self.headers["content-type"]
+		)
 		length = self.headers.get("content-length")
 
 		if length is not None:
@@ -76,7 +85,7 @@ class GitHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 		self.wfile.flush()
 		pid = os.fork()
 
-		if pid == 0: # child
+		if pid == 0:  # child
 			try:
 				os.dup2(self.rfile.fileno(), 0)
 				os.dup2(self.wfile.fileno(), 1)
@@ -99,7 +108,86 @@ class GitHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 		if code:
 			print(f"CGI script exited with status {code}")
 
-if __name__ == '__main__':
+
+class Repo:
+	def __init__(self, id: int, path: str, working_path: str):
+		self.id = id
+		self.path = path
+		self.working_path = working_path
+		self.last_commit_hash = ""
+
+	def event(self):
+		# check if there's a new commit which isn't from us
+
+		out = subprocess.run(["git", "log", "--pretty=%ae:%H:%f"], cwd=self.path, capture_output=True, text=True)
+		(*commits,) = map(lambda x: x.split(":"), out.stdout.strip().splitlines())
+
+		if not commits:
+			return
+
+		email, last_commit_hash, body = commits[0]
+
+		if email == SERVER_EMAIL:
+			return
+
+		if last_commit_hash == self.last_commit_hash:
+			return
+
+		print(self.last_commit_hash, last_commit_hash)
+		self.last_commit_hash = last_commit_hash
+
+		# handle the new commit
+
+		body = body.lower()
+		body = re.sub(r"-+", "-", body)
+
+		def is_exercice(body: str, num: int):
+			return f"exercice-{num}" in body or f"exercise-{num}" in body
+
+		subprocess.run(["git", "pull"], cwd=self.working_path)
+
+		if is_exercice(body, 2):
+			filename = "simplythebest"
+			count = 1
+
+			while os.path.exists(os.path.join(self.working_path, filename)):
+				count += 1
+				filename = f"simplythebest-{count}"
+
+			with open(os.path.join(self.working_path, filename), "w") as f:
+				f.write("Simply the best\nBetter than all the rest\nBetter than anyone\nAnyone I've ever met\n")
+
+			subprocess.run(["git", "add", filename], cwd=self.working_path)
+			subprocess.run(["git", "commit", "-m", f"exercice 2: Simply the best ({count})"], cwd=self.working_path)
+			subprocess.run(["git", "push"], cwd=self.working_path)
+
+		if is_exercice(body, 3):
+			path = os.path.join(self.working_path, "README.md")
+
+			with open(path) as f:
+				lines = f.read().splitlines()
+				lines[0] = "# This title is SIMPLY THE BEST\n"
+
+			with open(path, "w") as f:
+				f.write("\n".join(lines))
+
+			subprocess.run(["git", "add", "README.md"], cwd=self.working_path)
+			subprocess.run(["git", "commit", "-m", "exercice 3: Update title of README"], cwd=self.working_path)
+			subprocess.run(["git", "push"], cwd=self.working_path)
+
+	def __repr__(self):
+		return f"Repo({self.id})"
+
+
+def repo_worker(repo):
+	# TODO could this be instead called only when the repo endpoint is called?
+
+	while True:
+		repo.event()
+		time.sleep(1)
+
+
+if __name__ == "__main__":
 	# create new git repos
 
 	subprocess.run(["git", "config", "--global", "init.defaultBranch", "main"])
@@ -123,10 +211,10 @@ if __name__ == '__main__':
 		subprocess.run(["git", "clone", path, working_path])
 
 		# configure working repository
-		
+
 		subprocess.run(["git", "config", "commit.gpgsign", "false"], cwd=working_path)
-		subprocess.run(["git", "config", "user.name", "Tux"], cwd=working_path)
-		subprocess.run(["git", "config", "user.email", "info@louvainlinux.org"], cwd=working_path)
+		subprocess.run(["git", "config", "user.name", SERVER_NAME], cwd=working_path)
+		subprocess.run(["git", "config", "user.email", SERVER_EMAIL], cwd=working_path)
 
 		# add a file and commit it
 
@@ -136,6 +224,13 @@ if __name__ == '__main__':
 		subprocess.run(["git", "add", "README.md"], cwd=working_path)
 		subprocess.run(["git", "commit", "-m", "Initial commit"], cwd=working_path)
 		subprocess.run(["git", "push"], cwd=working_path)
+
+		# create repo worker process
+
+		repo = Repo(i, path, working_path)
+
+		p = multiprocessing.Process(target=repo_worker, args=(repo,))
+		p.start()
 
 	# serve the server
 
