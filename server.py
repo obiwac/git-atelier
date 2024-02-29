@@ -8,12 +8,12 @@ import shutil
 import socketserver
 import multiprocessing
 
-GIT_PATH = "/tmp/atelier-git"
-GIT_HTTP_BACKEND_PATH = "/usr/local/libexec/git-core/git-http-backend"
-REPO_COUNT = 1
+GIT_PATH = os.environ.get("GIT_PATH", "/tmp/atelier-git")
+GIT_HTTP_BACKEND_PATH = os.environ.get("GIT_HTTP_BACKEND_PATH", "/usr/lib/git-core/git-http-backend")
+REPO_COUNT = int(os.environ.get('REPO_COUNT', 10))
 POOL_COUNT = max(REPO_COUNT, multiprocessing.cpu_count())
-SERVER_NAME = "Tux"
-SERVER_EMAIL = "info@louvainlinux.org"
+SERVER_NAME = os.environ.get("SERVER_NAME", "Tux")
+SERVER_EMAIL = os.environ.get("SERVER_EMAIL", "info@louvainlinux.org")
 
 
 class GitHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):

@@ -1,0 +1,6 @@
+services:
+  git-atelier:
+    container_name: git-atelier
+    image: louvainlinux/git-atelier:latest
+    ports:
+    - 8000:8000/tcp
