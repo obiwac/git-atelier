@@ -42,19 +42,19 @@ Louvain-li-Nux
 
 Ouvrir votre émulateur de terminal ("Terminal" sur Windows), et ensuite :
 
-### Linux
+### Linux (<kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>C</kbd>, <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>V</kbd>)
 
 ```sh
 $ sudo apt update && sudo apt install git
 ```
 
-### Windows
+### Windows (<kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>C</kbd>, <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>V</kbd>)
 
 - `wsl --install`
 - Ouvrir une session Linux.
 - Cf. Linux.
 
-### Mac
+### Mac (<kbd>⌘</kbd><kbd>C</kbd>, <kbd>⌘</kbd><kbd>V</kbd>)
 
 ```sh
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git
