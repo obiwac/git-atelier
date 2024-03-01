@@ -4,6 +4,13 @@ theme: default
 class: invert
 ---
 
+<style>
+	kbd {
+		font-size: 0.7em;
+		line-height: 1.2em;
+	}
+</style>
+
 # Git
 
 **Outil de collaboration**
