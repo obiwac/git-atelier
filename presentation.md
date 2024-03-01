@@ -40,7 +40,7 @@ Louvain-li-Nux
 
 ---
 
-Ouvrir votre émulateur de terminal, et ensuite :
+Ouvrir votre émulateur de terminal ("Terminal" sur Windows), et ensuite :
 
 ### Linux
 
@@ -59,6 +59,12 @@ $ sudo apt update && sudo apt install git
 ```sh
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && brew install git
 ```
+
+---
+
+## WSL
+
+- Utilisez absolument le "Windows Terminal" ! (Les autres invites de commande sur Windows sont vraiment pourries.)
 
 ---
 
