@@ -30,6 +30,7 @@ It also creates an agent per repo for the exercises.
 Here are the various environment variables:
 
 |Name|Description|
+|-|-|
 |`GIT_PATH`|Where the server should store all of its data.|
 |`GIT_HTTP_BACKEND`|Where the `git-http-backend` CGI script is located.|
 |`REPO_COUNT`|How many repos to create.|
