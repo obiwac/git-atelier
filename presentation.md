@@ -24,7 +24,7 @@ Louvain-li-Nux
 ## Cette présentation est
 
 - Sous license libre GPLv2
-- Disponible en ligne : <https://gitlab.com/louvainlinux/training/atelier-git/-/blob/main/presentation.md>
+- Disponible en ligne : <https://git.louvainlinux.org>
 - N'hésitez pas à suivre les slides en même temps que la presentation !
 
 ---
@@ -894,4 +894,4 @@ $ git push
 
 Les slides sont disponibles en ligne :
 
-<https://gitlab.com/louvainlinux/training/atelier-git/-/blob/main/presentation.md>
+<https://git.louvainlinux.org>
