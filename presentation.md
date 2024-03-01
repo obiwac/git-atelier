@@ -451,7 +451,7 @@ $ pwd
 ### Exercice 1 : Les bases
 
 - Modifier le fichier `README.md`.
-- "Stage" les changements : `git add -p .`.
+- "Stage" les changements : `git add README.md`.
 - "Commit" les changements : `git commit -m "descriptif de mes changements"`.
 - "Push" les changements : `git push`.
 
