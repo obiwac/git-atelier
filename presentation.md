@@ -101,7 +101,8 @@ Soyez attentif ici, c'est là où les gens ont généralement le plus de mal !
 
 ## Le Chemin (aka Path)
 
-Une liste de dossiers empruntés pour arriver à un dossier/fichier, séparés par des `/`. E.g. :
+Une liste de dossiers empruntés pour arriver à un dossier/fichier, séparés par des `/`
+E.g. :
 
 - Un fichier qui s'appelle "tux" : `tux`
 - Ce dossier "super" : `super`
@@ -130,9 +131,9 @@ Ceci est un chemin *absolu* !
 
 On peut trouver un chemin absolu d'un chemin relatif en ajoutant notre dossier de travail avant :
 
-- Le fichier `tux` devient `/home/beastie/tux`.
-- Le dossier `super` devient `/home/beastie/super`.
-- Le fichier `super/tux2` devient `/home/beastie/super/tux2`.
+- Le fichier `tux` devient `/home/beastie/tux`
+- Le dossier `super` devient `/home/beastie/super`
+- Le fichier `super/tux2` devient `/home/beastie/super/tux2`
 
 ---
 
@@ -450,10 +451,10 @@ $ pwd
 
 ### Exercice 1 : Les bases
 
-- Modifier le fichier `README.md`.
-- "Stage" les changements : `git add README.md`.
-- "Commit" les changements : `git commit -m "descriptif de mes changements"`.
-- "Push" les changements : `git push`.
+- Modifier le fichier `README.md`
+- "Stage" les changements : `git add README.md`
+- "Commit" les changements : `git commit -m "descriptif de mes changements"`
+- "Push" les changements : `git push`
 
 ---
 
@@ -500,10 +501,10 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
 ### Exercice 2 : Changements remote
 
-- "Pull" les changements du remote : `git pull`.
-- Vous verrez un nouveau fichier en faisant `ls`.
+- "Pull" les changements du remote : `git pull`
+- Vous verrez un nouveau fichier en faisant `ls`
 - Faites un `git log` et vous verrez qu'un commit a été ajouté avant le votre.
-- "Push" votre commit et ça marchera : `git push`.
+- "Push" votre commit et ça marchera : `git push`
 
 ---
 
@@ -881,12 +882,12 @@ $ git push
 
 ## Features avancées
 
-- `git add -p`.
+- `git add -p`
 - Tags.
 - Les hooks : <pre-commit.com>.
-- `git commit --amend`.
-- `git blame`.
-- `git reset HEAD~1`.
+- `git commit --amend`
+- `git blame`
+- `git reset HEAD~1`
 
 ---
 
