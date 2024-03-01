@@ -8,8 +8,14 @@ import shutil
 import socketserver
 import multiprocessing
 
+DEFAULT_GIT_HTTP_BACKEND_PATH = "/usr/lib/git-core/git-http-backend"
+BSD_GIT_HTTP_BACKEND_PATH = "/usr/local/libexec/git-core/git-http-backend"
+
+if os.path.exists(BSD_GIT_HTTP_BACKEND_PATH):
+	DEFAULT_GIT_HTTP_BACKEND_PATH = BSD_GIT_HTTP_BACKEND_PATH
+
 GIT_PATH = os.environ.get("GIT_PATH", "/tmp/atelier-git")
-GIT_HTTP_BACKEND_PATH = os.environ.get("GIT_HTTP_BACKEND_PATH", "/usr/lib/git-core/git-http-backend")
+GIT_HTTP_BACKEND_PATH = os.environ.get("GIT_HTTP_BACKEND_PATH", DEFAULT_GIT_HTTP_BACKEND_PATH)
 REPO_COUNT = int(os.environ.get("REPO_COUNT", 10))
 POOL_COUNT = max(REPO_COUNT, multiprocessing.cpu_count())
 SERVER_NAME = os.environ.get("SERVER_NAME", "Tux")
