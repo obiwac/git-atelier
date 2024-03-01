@@ -23,7 +23,7 @@ Louvain-li-Nux
 
 ## Cette présentation est
 
-- Sous license libre GPLv2
+- Sous license libre GPLv2.
 - Disponible en ligne : <https://git.louvainlinux.org>
 - N'hésitez pas à suivre les slides en même temps que la presentation !
 
@@ -65,7 +65,7 @@ $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/
 ## WSL
 
 - Utilisez absolument le "Windows Terminal" ! (Les autres invites de commande sur Windows sont vraiment pourries.)
-- Dans votre session Linux, vous pouvez taper `explorer.exe .` pour ouvrir le dossier contenant vos fichiers sur Linux.
+- Dans votre session Linux, vous pouvez taper `explorer.exe .` (sans oublier le point !) pour ouvrir le dossier contenant vos fichiers sur Linux.
 
 ---
 
@@ -85,8 +85,8 @@ Donc $\rightarrow$ petit détour vers les bases du CLI !
 ## La Commande
 
 ```sh
-$ echo "Hello world"  # <-- commande + argument
-Hello world           # <-- sortie
+$ echo "Hello world"  # commande + argument
+Hello world           # sortie
 ```
 
 ![bg right width:100%](img/commande.png)
@@ -227,8 +227,8 @@ On verra l'utilité de celà un peu plus tard...
 ### Configuration de pour la suite de cet atelier git
 
 ```sh
-git config --global user.name "Tux"
-git config --global user.email "info@louvainlinux.org"
+git config --global user.name "Votre nom"
+git config --global user.email "votre@email.com"
 git config --global pull.rebase false
 git config --global push.autoSetupRemote true
 ```
@@ -238,15 +238,15 @@ git config --global push.autoSetupRemote true
 Clôner votre repo :
 
 ```sh
-$ git clone https://git.louvainlinux.org/repo-69
+$ git clone https://git.louvainlinux.org/repo-##
 ```
 
 Un dossier a été crée, `cd` dedans :
 
 ```sh
-$ cd repo-69
+$ cd repo-##
 $ pwd
-/home/tux/repo-69
+/home/tux/repo-##
 ```
 
 ---
@@ -444,7 +444,7 @@ Assurez-vous de bien être dans le dossier de votre repo :
 
 ```sh
 $ pwd
-/home/tux/repo-69
+/home/tux/repo-##
 ```
 
 ---
@@ -487,9 +487,9 @@ Essayez de faire un nouveau commit.
 ```sh
 $ git push
 [main 7c64a36] test
-To https://git.louvainlinux.org/repo-69
+To https://git.louvainlinux.org/repo-##
  ! [rejected]        main -> main (fetch first)
-error: failed to push some refs to 'https://git.louvainlinux.org/repo-69'
+error: failed to push some refs to 'https://git.louvainlinux.org/repo-##'
 hint: Updates were rejected because the remote contains work that you do not
 hint: have locally. This is usually caused by another repository pushing to
 hint: the same ref. If you want to integrate the remote changes, use
@@ -573,7 +573,7 @@ Choisissez le repo que vous préférez - vous allez à présent tous les deux tr
 Assurez-vous d'avoir tous les deux clone ce repo.
 
 ```sh
-$ git clone https://git.louvainlinux.org/repo-69
+$ git clone https://git.louvainlinux.org/repo-##
 ```
 
 ---
