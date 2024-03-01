@@ -571,6 +571,10 @@ Pour cette partie de la presentation, mettez vous en groupes de 2.
 Choisissez le repo que vous préférez - vous allez à présent tous les deux travailler dessus.
 Assurez-vous d'avoir tous les deux clone ce repo.
 
+```sh
+$ git clone https://git.louvainlinux.org/repo-69
+```
+
 ---
 
 ### Exercice 4 : Générer un merge conflict
