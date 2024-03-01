@@ -1,10 +1,13 @@
 FROM python:3
 
-RUN apt install git npm
-RUN npm install -g @marp-team/marp-cli
-RUN marp --html presentation.md
-
 WORKDIR /app
+
+RUN apt update && apt install -y git npm && rm -rf /var/lib/apt/lists/*
+RUN npm install -g @marp-team/marp-cli
+
+COPY presentation.md presentation.md
+
+RUN marp --html presentation.md
 
 #COPY requirements.txt .
 #RUN pip install -r requirements.txt
