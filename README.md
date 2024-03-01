@@ -13,7 +13,7 @@ npm -g install @marp-team/marp-cli
 You can serve it as such:
 
 ```console
-marp -w -s .
+marp --html -w -s .
 ```
 
 ## Exercise server

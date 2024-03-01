@@ -2,7 +2,7 @@ FROM python:3
 
 RUN apt install git npm
 RUN npm install -g @marp-team/marp-cli
-RUN marp presentation.md
+RUN marp --html presentation.md
 
 WORKDIR /app
 
