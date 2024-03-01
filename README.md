@@ -37,6 +37,14 @@ Here are the various environment variables:
 |`SERVER_EMAIL`|The email of the agent which will be shown in commits made by it.|
 |`KEEP_REPO`|If set to a truthy value, the created repos won't be destroyed and recreated when the server is run.|
 
+### Formatting
+
+With `tan`:
+
+```console
+tan --use-tabs --line-length 120 .
+```
+
 ## Next features
 
 - English language slides.
