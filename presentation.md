@@ -65,6 +65,7 @@ $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/
 ## WSL
 
 - Utilisez absolument le "Windows Terminal" ! (Les autres invites de commande sur Windows sont vraiment pourries.)
+- Dans votre session Linux, vous pouvez taper `explorer.exe .` pour ouvrir le dossier contenant vos fichiers sur Linux.
 
 ---
 
