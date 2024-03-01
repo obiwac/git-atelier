@@ -2,6 +2,20 @@
 
 The presentation and resources used during the git workshop given by Louvain-li-Nux (currently francophone only).
 
+## Building
+
+This presentation uses [Marp](https://marp.app/) for its slides:
+
+```console
+npm -g install @marp-team/marp-cli
+```
+
+You can serve it as such:
+
+```console
+marp -w -s .
+```
+
 ## Extra features
 
 - English language slides.
