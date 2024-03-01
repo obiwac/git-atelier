@@ -469,7 +469,7 @@ $ pwd
 Passer au prochain exercice en faisant un commit avec "exercice 2" dans le titre :
 
 ```sh
-$ git commit --allow-empty -m "exercice 2"
+$ git commit -m "exercice 2"
 $ git push
 ```
 
@@ -513,7 +513,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 Passer au prochain exercice en faisant un commit avec "exercice 3" dans le titre :
 
 ```sh
-$ git commit --allow-empty -m "exercice 3"
+$ git commit -m "exercice 3"
 $ git push
 ```
 

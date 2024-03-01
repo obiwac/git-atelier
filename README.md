@@ -56,3 +56,4 @@ tan --use-tabs --line-length 120 .
 ## Notes
 
 - Do break consistency by not adding dots at the end of commands, even if they're in a sentence. It can confuse people so the consistency isn't worth it.
+- Don't introduce `--allow-empty` even for the commits intended to signal to the server to move to the next exercise, it just confuses people.
