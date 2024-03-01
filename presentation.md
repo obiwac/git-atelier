@@ -771,6 +771,7 @@ Maintenant on va mettre ce que vous avez appris en pratique !
 
 ```sh
 $ ssh-keygen -t ed25519 -P ""
+# Appuyez sur ENTER
 $ cat ~/.ssh/id_ed25519.pub
 ```
 
