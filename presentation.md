@@ -883,7 +883,7 @@ $ git push
 
 - `git add -p`.
 - Tags.
-- Les hooks : (pre-commit.com)[pre-commit.com].
+- Les hooks : <pre-commit.com>.
 - `git commit --amend`.
 - `git blame`.
 - `git reset HEAD~1`.
